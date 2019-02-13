@@ -15,6 +15,15 @@ ul {
     margin: 0;
 }
 
+a {
+    text-decoration:none!important;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+
 /* For Navigation Section */
 .bg-fb {
     background-color: #4267b2;
@@ -63,4 +72,9 @@ ul {
         margin-top: 5px!important;
         width: auto!important;
     }  
+}
+
+/* For Content Section */
+#content-body{
+    max-width: 1500px;
 }
