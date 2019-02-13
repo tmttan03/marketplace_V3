@@ -1,0 +1,66 @@
+/* For general customization */
+body {
+    background: #e9ebee;
+    color: #333333;
+    margin: 0!important;
+    padding: 0!important;
+    max-width: 100%!important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #444444;
+}
+
+ul {
+    margin: 0;
+}
+
+/* For Navigation Section */
+.bg-fb {
+    background-color: #4267b2;
+    border-bottom: 1px solid #29487d;
+    color: #fff;
+}
+
+.site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+}
+
+.list-group-item {
+    border: none!important;
+}
+
+/* For Buttons */
+.btn-fb{
+    background-color: #4267b2!important;
+    border-color: #4267b2!important;
+    color: white!important;
+}
+
+/* For Search bar inside navigation pane */
+#search-bar{
+    margin-bottom: 0!important;
+    width: 650px!important;
+}
+#search-btn{
+    background-color: #ebedf0;
+    color: #333333;
+}
+.fa-search{
+    color: #333333;
+}
+
+@media only screen and (max-width: 600px) {
+    #search-bar{
+        margin-top: 5px!important;
+        width: auto!important;
+    }  
+}
