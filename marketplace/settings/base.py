@@ -162,3 +162,6 @@ WAGTAIL_SITE_NAME = "marketplace"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 15 * 1024 * 1024 
