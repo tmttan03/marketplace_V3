@@ -203,8 +203,8 @@ class TagsIndexPage(Page):
     def get_context(self, request):
 
         # Filter by tag
-        tag = request.GET.get('tag')
-        blogpages = PostPage.objects.filter(tags__name=tag)
+        #tag = request.GET.get('tag')
+        #blogpages = PostPage.objects.filter(tags__name=tag)
 
         # Update template context
         #context = super().get_context(request)
