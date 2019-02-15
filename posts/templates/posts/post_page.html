@@ -15,7 +15,11 @@
             <nav aria-label="breadcrumb" id="header-modal">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Marketplace</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="{{ categories.url }}">{{ page.categories }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {% if page.get_categories %}
+                            <a href="{{ page.get_categories.url }}">{{ page.categories }}</a>
+                        {% endif %}
+                    </li>
                 </ol>
             </nav>
             

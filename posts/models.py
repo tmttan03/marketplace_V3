@@ -21,6 +21,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 @register_snippet
 class PostCategory(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=250)
     icon = models.ForeignKey(
         'wagtailimages.Image', null=True, blank=True,
         on_delete=models.SET_NULL, related_name='+'
@@ -28,6 +29,7 @@ class PostCategory(models.Model):
 
     panels = [
         FieldPanel('name'),
+        FieldPanel('slug'),
         ImageChooserPanel('icon'),
     ]
 
@@ -119,6 +121,25 @@ class PostIndexPage(RoutablePageMixin, Page):
         return tags
 
 
+    @route('^categories/$', name='category_archive')
+    @route('^categories/([\w-]+)/$', name='category_archive')
+    def category_archive(self, request, category=None):
+        try:
+            category = PostCategory.objects.get(slug=category)
+        except PostCategory.DoesNotExist:
+            if category:
+                msg = 'There are no posts tagged with "{}"'.format(category)
+                messages.add_message(request, messages.INFO, msg)
+            return redirect(self.url)
+
+        posts = PostPage.objects.live().descendant_of(self)
+        posts = posts.filter(categories=category)
+        context = {
+            'categories': category,
+            'posts': posts
+        }
+        return render(request, 'posts/post_index_page.html', context)
+
 
 class PostPageTag(TaggedItemBase):
     """
@@ -178,6 +199,21 @@ class PostPage(Page):
                 tag.slug
             ])
         return tags
+    
+    @property
+    def get_categories(self):
+        """
+        Similar to the authors function above we're returning all the tags that
+        are related to the blog post into a list we can access on the template.
+        We're additionally adding a URL to access BlogPage objects with that tag
+        """
+        categories = self.categories
+        categories.url = '/'+'/'.join(s.strip('/') for s in [
+            self.get_parent().url,
+            'categories',
+            categories.slug
+        ])
+        return categories
 
     
 
