@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags  wagtailimages_tags %}
+{% load static %}
+
+{% block body_class %}template-postpage{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
    
-
     <div class="container">
         {% if tag %}
             <div class="row">
@@ -13,43 +19,37 @@
             </div>
         {% endif %}
 
-        {% if page.get_child_tags %}
-            <ul class="blog-tags tags list-inline">
-                {% for tag in page.get_child_tags %}
-                    <li><a href="{{ tag.url }}">{{ tag }}</a></li>
-                {% endfor %}
-            </ul>
+        {% if posts %}
+            {%  for product in posts  %}
+                {% if forloop.counter0|divisibleby:4 %} <div class="row text-center"> {%  endif %}
+                    <div class="col-xl-3">
+                        <a href="{{ product.url }}" id="detail-card"> 
+                        <div class="card">
+                        {% for photo in product.gallery_images.all %} 
+                            {% if forloop.counter == 1 %} 
+                                {% image photo.image fill-255x245 class='img-fluid' %}
+                            {% endif %}
+                        {% empty %}
+                            <img class="img-fluid" src="http://placehold.it/245" alt=""/> 
+                        {% endfor %}
+                            <span class="badge badge-dark" id="price-badge">{{ product.price }}</span>
+        
+                            <div class="card-content" id="product-details">
+                                <hr>
+                                <b><p>{{ product.title }} </p></b>
+                                <small>{{ product.location }} {{ product.latest_revision_created_at | timesince }}</small>
+                                <br>
+                            </div><!-- card content -->
+                        </div><!-- card -->
+                    </a><!-- link -->
+                    </div><!-- col-xl-4 -->
+                {%  if forloop.counter|divisibleby:4 or forloop.last %}</div><br><!-- row closing -->{%  endif %}
+            {%  endfor %}
+        {% else %}
+            <div class="col-md-12">
+                <p>Oh, snap. Looks like we were too busy baking to write any posts. Sorry.</p>
+            </div>
         {% endif %}
-
-        <div class="row row-eq-height blog-list">
-            {% if posts %}
-                {% for blog in posts %}
-                    <li class="col-xs-12 col-sm-6 col-md-3 blog-list-item">
-                        <a href="{% pageurl blog %}">
-                            <div class="image">
-                                {% image blog.image fill-850x450-c50 as image %}
-                                <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt }}" class="" />
-                            </div>
-                            <div class="text">
-                                <h2 class="blog-list-title">{{ blog.title }}</h2>
-                                <p>{{ blog.introduction|truncatewords:15 }}</p>
-                            </div>
-                            <div class="small footer">
-                                {% if blog.date_published %}
-                                    {{ blog.date_published }} by 
-                                {% endif %}
-                                {% for author in blog.authors %}
-                                    {{ author }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </div>
-                        </a>
-                    </li>
-                {% endfor %}
-            {% else %}
-                <div class="col-md-12">
-                    <p>Oh, snap. Looks like we were too busy baking to write any blog posts. Sorry.</p>
-                </div>
-            {% endif %}
-        </div>
     </div>
+
 {% endblock content %}

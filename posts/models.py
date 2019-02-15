@@ -8,6 +8,7 @@ from django.shortcuts import redirect, render
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase, Tag
+from PIL import Image
 
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
@@ -118,6 +119,7 @@ class PostIndexPage(RoutablePageMixin, Page):
         return tags
 
 
+
 class PostPageTag(TaggedItemBase):
     """
     This model allows us to create a many-to-many relationship between
@@ -177,6 +179,8 @@ class PostPage(Page):
             ])
         return tags
 
+    
+
     # Specifies parent to BlogPage as being BlogIndexPages
     parent_page_types = ['PostIndexPage']
 
@@ -196,6 +200,8 @@ class PostPageGalleryImage(Orderable):
         ImageChooserPanel('image'),
         FieldPanel('caption'),
     ]
+
+
 
 
 class TagsIndexPage(Page):

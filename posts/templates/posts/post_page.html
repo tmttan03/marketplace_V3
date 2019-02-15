@@ -1,43 +1,86 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
 
-    {% image self.image fill-1920x600 as hero_img %}
+<div class="container">
+    <div class="row">	 
+        <div class="col-md-6">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                {% if page.introduction %}
-                    <p class="intro">{{ page.introduction }}</p>
-                {% endif %}
+            <nav aria-label="breadcrumb" id="header-modal">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Marketplace</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="{{ categories.url }}">{{ page.categories }}</a></li>
+                </ol>
+            </nav>
+            
+            <h4 id='product-intro'>{{ page.title }}  
+                <span id="star"><i class="far fa-star"></i></span>
+            </h4>
+            <small>{{ page.location }} {{ page.latest_revision_created_at | timesince }}</small>
+            <hr>
+            <div id="body-span">{{ page.body | richtext }} </div><br>
 
-                <div class="blog-meta">
-                    {% if page.authors %}
-                        <div class="blog-avatars">
-                            {% for author in page.authors %}
-                                <div class="author">{% image author.image fill-50x50-c100 class="blog-avatar" %}
-                                    {{ author.first_name }} {{ author.last_name }}</div>
-                            {% endfor %}
+        </div><!--col-md-6-->
+
+        <div class="col-md-6"><!--col-md-6-->
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for photo in page.gallery_images.all %}	
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter }}" class="{% if forloop.counter == 1 %} active {% endif %}"></li>
+                    {% endfor %}
+                </ol>
+
+                <div class="carousel-inner">
+                    {% for photo in page.gallery_images.all %}	
+                        <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}" id="slide{{ forloop.counter }}">
+                            {% image photo.image fill-500x500 class='d-block w-100' %}
                         </div>
-                    {% endif %}
-
-                    {% if page.date_published %}
-                        <div class="blog-byline">
-                            {{ page.date_published }}
+                    {% empty %}
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="http://placehold.it/500" alt="First slide">
+                            {% image photo.image fill-500x500 class='d-block w-100' %}
                         </div>
-                    {% endif %}
+                    {% endfor %}
                 </div>
 
-                {{ page.body }}
-
+                {% for photo in page.gallery_images.all %}	
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                {% empty %}    
+                {% endfor %}
+            </div>
+            <br>
+            <h6 id='seller-intro'>Seller information</h6><br>
+            <div class="media">
+                <a href=""> <img class="rounded-circle detail-account-img" src="{{ page.seller.profile.image.url }}"></a>
+                <div class="media-body">
+                    <b><a href="" style="color: black"><h5>{{ page.seller.username }}</h5></a></b>
+                    <a href="" style="color: black"><h6>{{ page.seller.first_name }} {{ page.seller.last_name }}</h6></a>
+                </div>
+            </div>
+            <hr>
+            <div>
                 {% if page.get_tags %}
-                    Tagged with:<br />
+                    <span id='tag-intro'>Tagged with:</span><br>
                     {% for tag in page.get_tags  %}
-                        <a href="{{ tag.url }}" class="btn btn-sm">{{ tag }}</a>
+                        <a href="{{ tag.url }}" class="btn btn-sm btn-fb">{{ tag }}</a>
                     {% endfor %}
                 {% endif %}
-            </div>
-        </div>
-    </div>
+             </div>    
+        </div><!--col-md-6-->
+        </div><!--Row-->
+    </div><!--Container-->
+
 {% endblock content %}
