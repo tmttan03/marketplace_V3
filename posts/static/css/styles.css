@@ -1,0 +1,91 @@
+#detail-body.modal-body{
+    padding: 0;
+  }
+  
+  .breadcrumb{
+    background-color: #ffffff!important;
+    margin-bottom: 5px;
+  }
+  
+  .breadcrumb-item{
+    color: #8d949e;
+    font-size: 13px;
+    font-style: normal;
+  }
+  
+  .breadcrumb-item a{
+    color: #8d949e;
+  }
+  
+  #header-modal ol{
+    padding: 10px 0 10px 0;
+  }
+  
+  .detail-account-img {
+    height: 60px;
+    width: 60px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
+  
+  
+  .sold-account-img{
+    height: 40px;
+    width: 40px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
+  
+
+
+  /* used to style tags on blog */
+span.outline {
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.1);
+    font-size: 0.8em;
+    padding: 3px 6px;
+    text-transform: uppercase;
+}
+  
+
+/* hr */
+hr{
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+/*intro tags*/
+#tag-intro, #seller-intro{
+    text-transform: uppercase;
+    
+    line-height: 18px;
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+
+#tag-intro{
+    font-size: 12px;
+}
+
+#seller-intro{
+    font-size: 14px;
+}
+
+#product-intro{
+    text-transform: uppercase;
+    line-height: 18px;
+    margin-bottom: 0px; 
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#body-span{
+    font-size: 14px;
+    line-height: 25px;
+}
+
+#star{
+    float: right;
+    font-size: 14px;
+}
+

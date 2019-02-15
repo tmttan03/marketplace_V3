@@ -35,17 +35,15 @@
             </a><!-- link -->
             </div><!-- col-xl-4 -->
     {%  if forloop.counter|divisibleby:4 or forloop.last %}</div><br><!-- row closing -->{%  endif %}
-    {% empty %}
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-            <h1 class="display-4">No Products Yet</h1>
-            <p class="lead">Start by Creating Your First Product. </p>
-            </div>
-        </div>
     {%  endfor %}
 </div><!-- container -->
+{% else %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+        <h1 class="display-4">No Products Yet</h1>
+        <p class="lead">Start by Creating Your First Product. </p>
+        </div>
+    </div>
 {% endif %}
 
-
-    
 {% endblock %}

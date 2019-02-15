@@ -30,6 +30,7 @@
 
         <!--Navigation Bar-->
         {% include 'navigation.html' %}<br>
+        
 
         <div class="container" id="content-body">
             <div class="row">
@@ -43,6 +44,12 @@
                     </div>
                 </div>
                 <div class="col-md-10">
+                    {% if messages %}
+                        {% for message in messages %}
+                          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    
                     {% block content %}{% endblock %}
                 </div>
             </div>
